@@ -1,0 +1,23 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <PropertyGroup>
+        <OurUmbracoReusableContentPickerContentFilesPath>$(MSBuildThisFileDirectory)..\App_Plugins\Our.Umbraco.ReusableContentPicker\**\*.*</OurUmbracoReusableContentPickerContentFilesPath>
+    </PropertyGroup>
+
+    <Target Name="CopyOurUmbracoReusableContentPickerAssets" BeforeTargets="Build">
+        <ItemGroup>
+            <OurUmbracoReusableContentPickerContentFiles Include="$(OurUmbracoReusableContentPickerContentFilesPath)" />
+        </ItemGroup>
+        <Message Text="Copying Our.Umbraco.ReusableContentPicker files: $(OurUmbracoReusableContentPickerContentFilesPath) - #@(OurUmbracoReusableContentPickerContentFiles->Count()) files"  Importance="high" />
+        <Copy SourceFiles="@(OurUmbracoReusableContentPickerContentFiles)" DestinationFiles="@(OurUmbracoReusableContentPickerContentFiles->'$(MSBuildProjectDirectory)\App_Plugins\Our.Umbraco.ReusableContentPicker\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+    </Target>
+
+    <Target Name="ClearOurUmbracoReusableContentPickerAssets" BeforeTargets="Clean">
+        <ItemGroup>
+            <OurUmbracoReusableContentPickerDir Include="$(MSBuildProjectDirectory)\App_Plugins\Our.Umbraco.ReusableContentPicker\" />
+        </ItemGroup>
+        <Message Text="Clear old Our.Umbraco.ReusableContentPicker data"  Importance="high" />
+        <RemoveDir Directories="@(OurUmbracoReusableContentPickerDir)"  />
+    </Target>
+
+</Project>

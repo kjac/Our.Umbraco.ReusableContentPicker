@@ -1,0 +1,27 @@
+<div ng-controller="Our.Umbraco.ReusableContentPicker.Editor.Controller as vm" class="umb-property-editor umb-contentpicker">
+    <ng-form name="resusableContentForm">
+
+        <div ui-sortable="vm.sortableOptions" ng-model="vm.items">
+            <umb-node-preview ng-repeat="item in vm.items"
+                              icon="item.icon"
+                              name="item.name"
+                              published="item.published"
+                              sortable="!vm.sortableOptions.disabled"
+                              allow-remove="true"
+                              allow-open="true"
+                              on-remove="vm.remove(item)"
+                              on-open="vm.open(item)">
+            </umb-node-preview>
+        </div>
+
+        <button ng-show="vm.config.multiSelect === true || vm.items.length === 0"
+                type="button"
+                class="umb-node-preview-add"
+                ng-click="vm.add()"
+                id="{{model.alias}}"
+                aria-label="{{model.label}}: {{labels.general_add}}">
+            Add<span class="sr-only">...</span>
+        </button>
+
+    </ng-form>
+</div>

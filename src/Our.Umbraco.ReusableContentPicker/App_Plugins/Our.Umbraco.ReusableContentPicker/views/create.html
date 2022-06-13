@@ -1,0 +1,107 @@
+<div ng-controller="Our.Umbraco.ReusableContentPicker.Create.Controller as vm">
+
+    <umb-load-indicator ng-if="vm.loading"></umb-load-indicator>
+
+    <umb-editor-view ng-if="!vm.loading && !vm.creatingFolder">
+
+        <form novalidate name="createForm" class="form-horizontal" val-form-manager>
+
+            <umb-editor-header name="'What would you like to create?'"
+                               description="vm.labels.selectTypeDescription"
+                               name-locked="true"
+                               hide-alias="true"
+                               hide-icon="true"
+                               hide-description="false"
+                               description-locked="true">
+            </umb-editor-header>
+
+            <umb-editor-container>
+                <umb-box>
+                    <umb-box-content>
+                        <div ng-if="!vm.allowedContentTypes.length">
+                            Sorry, no types have been allowed for creation here.
+                        </div>
+
+                        <ul class="umb-actions umb-actions-child" ng-if="vm.allowedContentTypes.length" aria-labelledby="selectContentType">
+
+                            <li class="umb-action" data-element="action-create-{{contentType.alias}}" ng-repeat="contentType in vm.allowedContentTypes">
+                                <button type="button" class="umb-action-link umb-outline btn-reset" ng-click="vm.submit(contentType)">
+                                    <umb-icon icon="{{contentType.icon}}" class="icon large"></umb-icon>
+                                    <span class="menu-label">
+                                        {{contentType.name}}
+                                        <small>
+                                            {{contentType.description}}
+                                        </small>
+                                    </span>
+                                </button>
+                            </li>
+
+                        </ul>
+
+                    </umb-box-content>
+                </umb-box>
+            </umb-editor-container>
+
+            <umb-editor-footer>
+                <umb-editor-footer-content-right>
+                    <umb-button type="button"
+                                button-style="link"
+                                label="Cancel"
+                                shortcut="esc"
+                                action="vm.close()">
+                    </umb-button>
+                </umb-editor-footer-content-right>
+            </umb-editor-footer>
+
+        </form>
+
+    </umb-editor-view>
+
+    <umb-editor-view ng-if="!vm.loading && vm.creatingFolder">
+        <form novalidate name="createForm" class="form-horizontal" val-form-manager>
+
+            <umb-editor-header name="'Create a new folder'"
+                               description="vm.labels.createFolderDescription"
+                               name-locked="true"
+                               hide-alias="true"
+                               hide-icon="true"
+                               hide-description="false"
+                               description-locked="true">
+            </umb-editor-header>
+
+            <umb-editor-container>
+                <umb-box>
+                    <umb-box-content>
+                        <umb-control-group label="Enter a folder name" hide-label="false">
+                            <input type="text"
+                                   name="folderName"
+                                   maxlength="255"
+                                   ng-model="vm.newFolderName"
+                                   class="umb-textstring textstring input-block-level"
+                                   focus-when="{{vm.creatingFolder}}"
+                                   required />
+                        </umb-control-group>
+                    </umb-box-content>
+                </umb-box>
+            </umb-editor-container>
+
+            <umb-editor-footer>
+                <umb-editor-footer-content-right>
+                    <umb-button type="button"
+                                button-style="link"
+                                label="Cancel"
+                                shortcut="esc"
+                                action="vm.close()">
+                    </umb-button>
+                    <umb-button type="button"
+                                button-style="success"
+                                label="Create"
+                                action="vm.createFolder(vm.newFolderName)"
+                                disabled="!vm.newFolderName">
+                    </umb-button>
+                </umb-editor-footer-content-right>
+            </umb-editor-footer>
+
+        </form>
+    </umb-editor-view>
+</div>

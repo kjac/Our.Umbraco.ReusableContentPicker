@@ -1,0 +1,127 @@
+<div ng-controller="Our.Umbraco.ReusableContentPicker.Picker.Controller as vm">
+    <umb-load-indicator ng-if="vm.rootLoading"></umb-load-indicator>
+
+    <umb-editor-view ng-if="!vm.rootLoading">
+
+        <form novalidate name="pickerForm" class="form-horizontal" val-form-manager>
+
+            <umb-editor-header name="'Select content'"
+                               name-locked="true"
+                               hide-alias="true"
+                               hide-icon="true"
+                               hide-description="true">
+            </umb-editor-header>
+
+            <umb-editor-container>
+                <umb-box>
+                    <umb-box-content>
+
+                        <div class="umb-control-group">
+                            <button type="button" class="btn-reset umb-mini-list-view__back" ng-if="vm.canGoBack()" ng-click="vm.goBack()">
+                                <umb-icon icon="icon-navigation-left"></umb-icon>
+                                <span style="line-height: 0">Go back</span>
+                            </button>
+                            <div class="umb-minilistview">
+                                <div class="umb-mini-list-view umb-animated" ng-class="{'umb-mini-list-view--forward': listViewAnimation === 'in', 'umb-mini-list-view--backwards': listViewAnimation === 'out'}">
+                                    <div class="umb-mini-list-view__title">
+                                        <umb-icon icon="{{vm.current.icon}}" class="umb-mini-list-view__title-icon"></umb-icon>
+                                        <h4 class="umb-mini-list-view__title-text">{{ vm.current.name }}</h4>
+                                    </div>
+
+                                    <div ng-if="vm.folders.length" class="flex flex-wrap ml3 mr3 mt1 mb1" style="line-height: 1">
+                                        <div ng-repeat="folder in vm.folders" class="flex items-center cursor-pointer mb2" ng-click="vm.select(folder)" ng-class="{'umb-table-cell--faded':folder.published === false}">
+                                            <umb-icon style="font-size: 18px; height: 18px" icon="{{folder.icon}}" class="umb-table-body__icon umb-table-body__fileicon"></umb-icon>
+                                            <div class="black ml1 mr3">{{ folder.name }}</div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="umb-table umb-table--condensed">
+
+                                        <!-- Head -->
+                                        <div class="umb-table-head" ng-if="vm.query || vm.searching || vm.pagination.totalPages > 1">
+                                            <div class="umb-table-row">
+                                                <div class="umb-table-cell no-display"></div>
+                                                <div class="umb-table-cell umb-table-cell-padding">
+                                                    <ng-form class="flex w-100 -no-margin-bottom" novalidate>
+                                                        <div class="flex-auto">
+                                                            <umb-search-filter input-id="content-picker-search"
+                                                                               model="vm.query"
+                                                                               label-key="general_typeToSearch"
+                                                                               text="Type to search..."
+                                                                               on-change="vm.search()"
+                                                                               css-class="w-100 mb-15"
+                                                                               auto-focus="true">
+                                                            </umb-search-filter>
+                                                        </div>
+                                                    </ng-form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Body -->
+                                        <div class="umb-table-body" style="min-height: 2em">
+
+                                            <!-- Load indicator when the list has items -->
+                                            <div class="umb-table__loading-overlay" ng-if="vm.itemsLoading">
+                                                <umb-load-indicator></umb-load-indicator>
+                                            </div>
+
+                                            <!-- Items -->
+                                            <div class="umb-table-row cursor-pointer umb-outline"
+                                                 ng-if="!vm.itemsLoading"
+                                                 ng-repeat="item in vm.items"
+                                                 ng-click="vm.select(item)"
+                                                 ng-class="{'-selected':item.selected}">
+                                                <div class="umb-table-cell umb-table-cell--auto-width" ng-class="{'umb-table-cell--faded':item.published === false}">
+                                                    <div class="flex items-center">
+                                                        <umb-icon icon="{{item.icon}}" class="umb-table-body__icon umb-table-body__fileicon"></umb-icon>
+                                                        <umb-icon icon="icon-check" class="umb-table-body__icon umb-table-body__checkicon"></umb-icon>
+                                                    </div>
+                                                </div>
+                                                <div class="umb-table-cell black" ng-class="{'umb-table-cell--faded':item.published === false}">{{ item.name }}</div>
+                                            </div>
+
+                                            <div ng-if="!vm.itemsLoading && vm.items.length === 0" class="umb-table-row umb-table-row--empty">
+                                                <span ng-if="vm.query === ''">No items have been added yet.</span>
+                                                <span ng-if="vm.query !== ''">Sorry, we can not find what you are looking for.</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="flex justify-center">
+                                        <umb-pagination ng-if="vm.pagination.totalPages > 1 && !vm.itemsLoading"
+                                                        page-number="vm.pagination.pageNumber"
+                                                        total-pages="vm.pagination.totalPages"
+                                                        on-change="vm.goToPage(pageNumber)">
+                                        </umb-pagination>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </umb-box-content>
+                </umb-box>
+            </umb-editor-container>
+
+            <umb-editor-footer>
+                <umb-editor-footer-content-right>
+                    <umb-button type="button"
+                                button-style="link"
+                                label="Cancel"
+                                shortcut="esc"
+                                action="vm.close()">
+                    </umb-button>
+                    <umb-button type="button"
+                                label="Create new..."
+                                action="vm.create()">
+                    </umb-button>
+                </umb-editor-footer-content-right>
+            </umb-editor-footer>
+
+        </form>
+
+    </umb-editor-view>
+
+</div>

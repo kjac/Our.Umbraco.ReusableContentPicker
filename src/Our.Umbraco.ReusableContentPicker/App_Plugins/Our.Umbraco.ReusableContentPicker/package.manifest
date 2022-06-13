@@ -1,0 +1,12 @@
+﻿{
+  "name": "Our.Umbraco.ReusableContentPicker",
+  "allowPackageTelemetry": true,
+  "javascript": [
+    "~/App_Plugins/Our.Umbraco.ReusableContentPicker/js/create.controller.js",
+    "~/App_Plugins/Our.Umbraco.ReusableContentPicker/js/editor.controller.js",
+    "~/App_Plugins/Our.Umbraco.ReusableContentPicker/js/picker.controller.js"
+  ],
+  "css": [
+    "~/App_Plugins/Our.Umbraco.ReusableContentPicker/css/styles.css"
+  ]
+}

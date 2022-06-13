@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<ContentTargetFolders>.</ContentTargetFolders>
+		<Authors>Kenn Jacobsen</Authors>
+		<Product>Our Umbraco ReusableContentPicker</Product>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageId>Our.Umbraco.ReusableContentPicker</PackageId>
+		<Copyright>Kenn Jacobsen</Copyright>
+		<Version>1.0.0</Version>
+		<Title>Our.Umbraco.ReusableContentPicker</Title>
+		<Description>Reusable content picker for Umbraco CMS</Description>
+		<PackageProjectUrl>https://github.com/kjac/our.umbraco.reusablecontentpicker</PackageProjectUrl>
+		<PackageTags>umbraco plugin package content picker editor</PackageTags>
+		<RootNamespace>Our.Umbraco.ReusableContentPicker</RootNamespace>
+		<PackageIcon>package-icon.png</PackageIcon>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Umbraco.Cms.Web.Website" Version="[9.0.1,10)" />
+		<PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="[9.0.1,10)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="App_Plugins\Our.Umbraco.ReusableContentPicker\**\*.*">
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
+		</Content>
+		<None Include="build\**\*.*">
+			<Pack>true</Pack>
+			<PackagePath>buildTransitive</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="App_Plugins\Our.Umbraco.ReusableContentPicker\js\editor.controller.js" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="App_Plugins\Our.Umbraco.ReusableContentPicker\views\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\..\build\package-icon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+</Project>

@@ -1,0 +1,17 @@
+.-content-builder-infinite-editor .umb-editor--infiniteMode umb-variant-content-editors + .umb-editor-footer umb-button[alias=preview],
+.-content-builder-infinite-editor .umb-editor--infiniteMode umb-variant-content-editors + .umb-editor-footer umb-button[alias=saveAndPublish],
+.-content-builder-infinite-editor .umb-editor--infiniteMode umb-variant-content-editors + .umb-editor-footer .umb-button-group,
+.-content-builder-infinite-editor .umb-editor--infiniteMode umb-variant-content-editors + .umb-editor-footer umb-button[alias=save],
+.-content-builder-infinite-editor .umb-editor--infiniteMode umb-variant-content-editors + .umb-editor-footer .umb-breadcrumbs {
+    display: none;
+}
+
+.-content-builder-infinite-editor .umb-editor--infiniteMode umb-variant-content-editors + .umb-editor-footer umb-button[state=saveAndCloseButtonState] button {
+    background: #e9e9eb;
+    color: #000;
+    font-weight: unset;
+}
+
+.-content-builder-infinite-editor .umb-editor--infiniteMode umb-variant-content-editors + .umb-editor-footer umb-button[state=publishAndCloseButtonState] button {
+    background: #2bc37c;
+}
